@@ -277,14 +277,12 @@ def plot_fig(test_img, scores, gts, threshold, save_dir, class_name):
         fig_img.savefig(os.path.join(save_dir, class_name + '_{}'.format(i)), dpi=100)
         plt.close()
 
-
 def denormalization(x):
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
     x = (((x.transpose(1, 2, 0) * std) + mean) * 255.).astype(np.uint8)
     
     return x
-
 
 def embedding_concat(x, y):
     B, C1, H1, W1 = x.size()
@@ -299,7 +297,6 @@ def embedding_concat(x, y):
     z = F.fold(z, kernel_size=s, output_size=(H1, W1), stride=s)
 
     return z
-
 
 if __name__ == '__main__':
     main()

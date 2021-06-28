@@ -1,9 +1,16 @@
 # PaDiM-EfficientNet
 
+There are two differences from the existing [PaDiM code](https://github.com/xiahaifeng1995/PaDiM-Anomaly-Detection-Localization-master). 
 
+1. used the transfer-learned EfficientNet model, and utilized the beginning, middle, and end of feature maps of each block (Here, it is expressed in Fst, Md, Lst)
+2. The test code of the existing code takes a long time by calculating the distance of Mahalanobis based on scipy, which is replaced by a tensor (attach GPU) base to reduce the inference time.
 
 ## Requirement
 * pytorch=1.8.0=py3.7_cuda11.1_cudnn8.0.5_0 (Or something similar)
+
+* [EfficientNet-PyTorch](https://github.com/lukemelas/EfficientNet-PyTorch)
+
+  The test equipment is a single rtx3090 and see the `environment.yaml` file for detailed environment settings.
 
 ## Datasets
 MVTec AD datasets : Download from [MVTec website](https://www.mvtec.com/company/research/datasets/mvtec-ad/)
@@ -59,91 +66,99 @@ MVTec AD datasets : Download from [MVTec website](https://www.mvtec.com/company/
 
 - Test inference time(s)
 
-| MvTec   | R18-Rd100 (original code) | WR50-Rd550 (original code) | Effi-B7 | Effi-B4 |
-| ------- | ------------------------- | -------------------------- | ------- | ------- |
-| Carpet  |                           | 27.519                     |         |         |
-| Grid    |                           | 24.485                     |         |         |
-| Leather |                           | 29.202                     |         |         |
-| Tile    |                           | 26.932                     |         |         |
-| Wood    |                           | 23.072                     |         |         |
-| Bottle  |                           | 23.327                     |         |         |
-| Cable   |                           |                            |         |         |
-| Capsule |                           |                            |         |         |
-
-
+| MvTec      | R18-Rd100 (original code) | WR50-Rd550 (original code) | Effi-B7 | Effi-B4 |
+| ---------- | ------------------------- | -------------------------- | ------- | ------- |
+| Carpet     | 4.227                     | 27.178                     | 0.744   | 0.547   |
+| Grid       | 3.012                     | 23.056                     | 0.672   | 0.462   |
+| Leather    | 4.495                     | 27.575                     | 0.755   | 0.540   |
+| Tile       | 4.233                     | 26.915                     | 0.743   | 0.551   |
+| Wood       | 3.038                     | 24.067                     | 0.672   | 0.464   |
+| Bottle     | 3.169                     | 24.119                     | 0.669   | 0.469   |
+| Cable      | 5.332                     | 28.246                     | 0.786   | 0.596   |
+| Capsule    | 4.830                     | 26.662                     | 0.755   | 0.550   |
+| Hazelnut   | 4.033                     | 25.470                     | 0.730   | 0.540   |
+| Metal nut  | 4.181                     | 25.869                     | 0.744   | 0.546   |
+| Pill       | 5.842                     | 30.071                     | 0.825   | 0.546   |
+| Screw      | 5.765                     | 29.405                     | 0.818   | 0.578   |
+| Toothbrush | 1.764                     | 20.135                     | 0.590   | 0.387   |
+| Transistor | 3.701                     | 24.287                     | 0.715   | 0.484   |
+| Zipper     | 5.337                     | 28.614                     | 0.837   | 0.587   |
 
  ### ROC Curve
 
 * ResNet18
 
-<p align="center">
-    <img src="imgs/roc_curve_r18.png" width="1000"\>
-</p>
+![resnet18_roc_curve](./imgs/resnet18-roc_curve.png)
+
 
 * Wide_ResNet50_2
 
-<p align="center">
-    <img src="imgs/roc_curve_wr50.png" width="1000"\>
-</p>
-- efficientnet-b7_fst
+![wide-resnet50_2_roc_curve](./imgs/wide-resnet50-2-roc_curve.png)
+
+- Efficientnet-b7_fst
 
 ![efficientnet-b7_fst_roc_curve](./imgs/efficientnet-b7_fst_roc_curve.png)
 
-- efficientnet-b7_md
+- Efficientnet-b7_md
 
 ![efficientnet-b7_md_roc_curve](./imgs/efficientnet-b7_md_roc_curve.png)
 
-- efficientnet-b7_lst
+- Efficientnet-b7_lst
 
 ![efficientnet-b7_lst_roc_curve](./imgs/efficientnet-b7_lst_roc_curve.png)
 
 ### Localization examples
 
+- sampled by EfficientNet-B7
+
 <p align="center">
-    <img src="imgs/bottle.png" width="600"\>
+    <img src="imgs/bottle.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/cable.png" width="600"\>
+    <img src="imgs/cable.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/capsule.png" width="600"\>
+    <img src="imgs/capsule.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/carpet.png" width="600"\>
+    <img src="imgs/carpet.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/grid.png" width="600"\>
+    <img src="imgs/grid.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/hazelnut.png" width="600"\>
+    <img src="imgs/hazelnut.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/leather.png" width="600"\>
+    <img src="imgs/leather.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/metal_nut.png" width="600"\>
+    <img src="imgs/metal_nut.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/pill.png" width="600"\>
+    <img src="imgs/pill.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/screw.png" width="600"\>
+    <img src="imgs/screw.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/tile.png" width="600"\>
+    <img src="imgs/tile.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/toothbrush.png" width="600"\>
+    <img src="imgs/toothbrush.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/transistor.png" width="600"\>
+    <img src="imgs/transistor.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/wood.png" width="600"\>
+    <img src="imgs/wood.png" width="800"\>
 </p>
 <p align="center">
-    <img src="imgs/zipper.png" width="600"\>
+    <img src="imgs/zipper.png" width="800"\>
 </p>
 
+
 ## Reference
-[1]
+[1] Thomas Defard, Aleksandr Setkov, Angelique Loesch, Romaric Audigier. *PaDiM: a Patch Distribution Modeling Framework for Anomaly Detection and Localization*. https://arxiv.org/pdf/2011.08785
+
+[2] https://github.com/xiahaifeng1995/PaDiM-Anomaly-Detection-Localization-master
