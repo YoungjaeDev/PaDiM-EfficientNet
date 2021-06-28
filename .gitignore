@@ -1,0 +1,5 @@
+mvtec_anomaly_detection/
+__pycache__
+result/
+org_result/
+*.txt
