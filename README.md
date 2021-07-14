@@ -10,7 +10,7 @@ There are two differences from the existing [PaDiM code](https://github.com/xiah
 
 * [EfficientNet-PyTorch](https://github.com/lukemelas/EfficientNet-PyTorch)
 
-  The test equipment is a single rtx3090 and see the `environment.yaml` file for detailed environment settings.
+  The test equipment is a single rtx3090 and see the `environment.yaml` or `requirements.txt` file for detailed environment settings.
 
 ## Datasets
 MVTec AD datasets : Download from [MVTec website](https://www.mvtec.com/company/research/datasets/mvtec-ad/)

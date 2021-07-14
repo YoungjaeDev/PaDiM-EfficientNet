@@ -1,5 +1,5 @@
 mvtec_anomaly_detection/
 __pycache__
+.vscode/
 result/
 org_result/
-*.txt
