@@ -15,6 +15,12 @@ There are two differences from the existing [PaDiM code](https://github.com/xiah
 ## Datasets
 MVTec AD datasets : Download from [MVTec website](https://www.mvtec.com/company/research/datasets/mvtec-ad/)
 
+## Usage
+```bash
+# training
+python main.py -d mvtec_anomaly_detection/ -s results --training
+# test -> exclude --training option
+```
 
 ## Results
 ### Implementation results on MVTec

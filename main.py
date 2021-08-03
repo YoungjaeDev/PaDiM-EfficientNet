@@ -46,12 +46,12 @@ def parse_args():
     parser.add_argument('-s', '--save_path', type=str, required=True, help='inference model & data location')
     parser.add_argument('-a', '--arch', type=str, choices=['b0', 'b1', 'b4', 'b7'], default='b4')
     parser.add_argument('-b', '--batch_size', type=int, default=32)
-    parser.add_argument('--training', type=lambda s: s.lower() in ['true', '1'])
+    parser.add_argument('--training', action='store_true')
     parser.add_argument('--seed', type=int, default=1024)
     parser.add_argument('--resize', type=int, default=256)
     parser.add_argument('--cropsize', type=int, default=224)
-    parser.add_argument('--model_print', type=bool, default=False)
-    parser.add_argument('--img_print', type=bool, default=False)
+    parser.add_argument('--model_print', action='store_true')
+    parser.add_argument('--img_print', action='store_true')
     
     return parser.parse_args()
     # epoch, random_select size
